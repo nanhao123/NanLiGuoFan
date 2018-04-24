@@ -1,0 +1,55 @@
+crowd counting人群密度估计/计数
+
+1.Cross-scene Crowd Counting via Deep Convolutional Neural Networks 
+CVPR2015
+通过CNN将得到的特征分为两个支路输出结果，一个用于生成密度图，一个用于统计人数。
+在不同数据集迁移学习。
+
+2.Single-Image Crowd Counting via Multi-Column Convolutional Neural Network 
+CVPR2016 
+通过生成密度图再进行积分的方式统计人数。                         后续论文大多沿着这个思路。
+使用高斯核函数从有人头标记的图像得到人群密度图。
+用不同尺度的滤波器来提取不同尺度的特征，分为9X9，7X7，5X5三个支路。       能否用SPP替代多分支。
+使用二次代价函数。                            后续论文提到该函数的不足。 能否用交叉熵函数替代。
+
+3.CrowdNet: A Deep Convolutional Network for Dense Crowd Counting 
+ACMMM 2016 
+网络分为Deep和Shallow两个支路。deep支路类似于VGG将最后的全连接换成全卷积，用于提取高层语义信息
+shallow支路用于检测远处小尺度的人头。
+用尺度变换的方式进行数据扩增。
+对易错的样本重复训练。
+
+4.Mixture of Counting CNNs: Adaptive Integration of CNNs Specialized to Specific Appearance for Crowd Counting 
+https://arxiv.org/abs/1703.09393
+用于人群计数。用多个小尺度CNN来估计总人群。然后用大尺度的CNN对图像块进行分类，这种分类主要依据人群密度大小。
+
+
+5.Multi-scale Convolutional Neural Networks for Crowd Counting
+https://arxiv.org/abs/1702.02359
+
+1.Spatiotemporal Modeling for Crowd Counting in Videos 
+ICCV2017
+2.Crowd Counting Via Scale-adaptive Convolutional Nerual Network 
+https://arxiv.org/abs/1711.04433v2 
+
+
+6.Multi-scale Convolutional Neural Networks for Crowd Counting
+https://arxiv.org/abs/1702.02359
+
+8.Fully Convolutional Crowd Counting On Highly Congested Scenes 
+VISAPP 2017
+9.Switching Convolutional Neural Network(SCNN)for Crowd Counting. 
+CVPR2017
+10.CNN-based Cascaded Multi-task Learning of High-level Prior and Density Estimation for Crowd Counting.
+AVSS 2017
+11.Leveraging Unlabeled Data for Crowd Counting by Learning to Rank 
+CVPR2018 
+
+12.Structured Inhomogeneous Density Map Learning for Crowd Counting 
+https://arxiv.org/abs/1801.06642
+13.CSRNet: Dilated Convolutional Neural Networks for Understanding the Highly Congested Scenes 
+CVPR2018
+14.DecideNet: Counting Varying Density Crowds Through Attention Guided Detection and Density Estimation 
+CVPR2018
+15.Learning a perspective-embedded deconvolution network for crowd counting
+ICME2017
