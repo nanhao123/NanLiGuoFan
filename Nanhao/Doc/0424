@@ -1,20 +1,20 @@
 crowd counting人群密度估计/计数
 
-1.Cross-scene Crowd Counting via Deep Convolutional Neural Networks 
+1.Cross-scene Crowd Counting via Deep Convolutional Neural Networks （solid）
 CVPR2015
 通过CNN将得到的特征分为两个支路输出结果，一个用于生成密度图，一个用于统计人数。
 在不同数据集迁移学习。
 
-2.Single-Image Crowd Counting via Multi-Column Convolutional Neural Network 
+2.Single-Image Crowd Counting via Multi-Column Convolutional Neural Network （solid）
 CVPR2016 
 通过生成密度图再进行积分的方式统计人数。                         后续论文大多沿着这个思路。
 使用高斯核函数从有人头标记的图像得到人群密度图。
 用不同尺度的滤波器来提取不同尺度的特征，分为9X9，7X7，5X5三个支路。       能否用SPP替代多分支。
-使用二次代价函数。                            后续论文提到该函数的不足。 能否用交叉熵函数替代。
+Loss Function:使用二次代价函数。                      后续论文大多使用该函数，也有提到该函数的不足。 能否用交叉熵函数替代。
 
-3.CrowdNet: A Deep Convolutional Network for Dense Crowd Counting 
+3.CrowdNet: A Deep Convolutional Network for Dense Crowd Counting （solid）
 ACMMM 2016 
-网络分为Deep和Shallow两个支路。deep支路类似于VGG将最后的全连接换成全卷积，用于提取高层语义信息
+网络分为Deep和Shallow两个支路。deep支路类似于VGG将最后的全连接换成全卷积，用于提取高层语义信息。
 shallow支路用于检测远处小尺度的人头。
 用尺度变换的方式进行数据扩增。
 对易错的样本重复训练。
@@ -23,33 +23,56 @@ shallow支路用于检测远处小尺度的人头。
 https://arxiv.org/abs/1703.09393
 用于人群计数。用多个小尺度CNN来估计总人群。然后用大尺度的CNN对图像块进行分类，这种分类主要依据人群密度大小。
 
-
-5.Multi-scale Convolutional Neural Networks for Crowd Counting
+5.Multi-scale Convolutional Neural Networks for Crowd Counting （solid）
 https://arxiv.org/abs/1702.02359
+针对Multi-column网络复杂计算量大，用类似Inception的结构作为多尺度CNN单元。
 
-1.Spatiotemporal Modeling for Crowd Counting in Videos 
+6.Spatiotemporal Modeling for Crowd Counting in Videos （solid）
 ICCV2017
-2.Crowd Counting Via Scale-adaptive Convolutional Nerual Network 
-https://arxiv.org/abs/1711.04433v2 
+用于视频的人群密度估计。
+在convLSTM的基础上使用了bidirectional ConvLSTM。
 
-
-6.Multi-scale Convolutional Neural Networks for Crowd Counting
-https://arxiv.org/abs/1702.02359
+7.Learning a perspective-embedded deconvolution network for crowd counting
+ICME2017
+主要用了FCN和deconv,将perspective map融合进解卷积网络。
 
 8.Fully Convolutional Crowd Counting On Highly Congested Scenes 
 VISAPP 2017
-9.Switching Convolutional Neural Network(SCNN)for Crowd Counting. 
+主要使用了FCN来解决多尺度头像的问题。
+
+9.Switching Convolutional Neural Network(SCNN)for Crowd Counting  solid）
 CVPR2017
+将原图分解为图像块，针对不同人体尺度的图像块进行判断，然后分别使用9x9,7x7,5x5三个卷积支路获得密度图。
+
 10.CNN-based Cascaded Multi-task Learning of High-level Prior and Density Estimation for Crowd Counting.
 AVSS 2017
-11.Leveraging Unlabeled Data for Crowd Counting by Learning to Rank 
-CVPR2018 
+通过卷积层后将特征输入两个分支，其一根据图像中的大致总人数将图像分为10类，然后将支路一的特征与支路二的特征融合，最后上采样输出密度图
+支路一使用交叉熵函数，支路二使用二次代价函数。
 
-12.Structured Inhomogeneous Density Map Learning for Crowd Counting 
+11.Crowd Counting Via Scale-adaptive Convolutional Nerual Network （solid）
+https://arxiv.org/abs/1711.04433v2 
+提出了一个新的LOSS解决稀疏人群中二次代价函数效果不佳。
+提出了一个尺度自适应的CNN架构，使用了shortcut，输出结果为两个，一是人群密度图，二是统计人数。
+
+12.Structured Inhomogeneous Density Map Learning for Crowd Counting （solid）
 https://arxiv.org/abs/1801.06642
+将密度图从二维扩展到三维，增加密度等级为新的维度，对不同密度等级使用不同的高斯卷积核从而获得密度图。
+
 13.CSRNet: Dilated Convolutional Neural Networks for Understanding the Highly Congested Scenes 
 CVPR2018
-14.DecideNet: Counting Varying Density Crowds Through Attention Guided Detection and Density Estimation 
+针对MCNN的效果不如单一CNN网络，提出了dilate Conv,其实就是跨步长的卷积。
+
+14.DecideNet: Counting Varying Density Crowds Through Attention Guided Detection and Density Estimation （solid）
 CVPR2018
-15.Learning a perspective-embedded deconvolution network for crowd counting
-ICME2017
+将检测方法和回归方法结合并用于人群密度估计。
+网络包括三个部分：回归子网络，检测子网络，权重系数子网络
+回归子网络在没有预测人头位置的情况下输出像素的密度图；
+检测子网络将Faster-RCNN 应用到人头检测，随后加入高斯卷积层输出密度图；
+权重系数子网络：将上述两密度图融合为一个密度图
+提出新的LOSS
+
+15.Leveraging Unlabeled Data for Crowd Counting by Learning to Rank    （solid）
+CVPR2018 
+针对数据集小，提出使用未标记数据来自监督学习。
+将小区域人数必定少于大区域人数这个常识作为约束辅助训练。
+用到了learning to rank的思想，设计了ranking loss。
