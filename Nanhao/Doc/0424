@@ -40,7 +40,7 @@ ICME2017
 VISAPP 2017
 主要使用了FCN来解决多尺度头像的问题。
 
-9.Switching Convolutional Neural Network(SCNN)for Crowd Counting  solid）
+9.Switching Convolutional Neural Network(SCNN)for Crowd Counting  （solid）
 CVPR2017
 将原图分解为图像块，针对不同人体尺度的图像块进行判断，然后分别使用9x9,7x7,5x5三个卷积支路获得密度图。
 
