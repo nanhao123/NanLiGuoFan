@@ -71,8 +71,19 @@ CVPR2018
 权重系数子网络：将上述两密度图融合为一个密度图
 提出新的LOSS
 
-15.Leveraging Unlabeled Data for Crowd Counting by Learning to Rank    （solid）
+15.Leveraging Unlabeled Data for Crowd Counting by Learning to Rank （solid）
 CVPR2018 
 针对数据集小，提出使用未标记数据来自监督学习。
 将小区域人数必定少于大区域人数这个常识作为约束辅助训练。
 用到了learning to rank的思想，设计了ranking loss。
+
+
+
+图像的人群密度估计方法，主要有以下注意点：
+1.使用高斯卷积核输出密度图。
+2.主要面临图像中远近人头大小不一的问题，所以多数论文着力解决尺度问题。
+3.大多使用监督学习的方法。
+改进：1.网络结构，面对多尺度问题，尝试使用SPP FCN等网络的融合。
+2.Loss基本上统一采用二次代价函数，缺乏亮点。
+3.尝试结合zero shot,few shot等无监督半监督学习方法。
+4.针对视频的人群密度估计可作为下一个研究方向。
